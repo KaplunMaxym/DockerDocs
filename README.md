@@ -81,20 +81,21 @@ create_image:
 	docker build -t node_docker:env .
 ```
 #### create_image: This target builds the Docker image with the tag node_docker:env using the Dockerfile in the current directory (.).
-<div style="text-align: center;">
-  <img src="refs/r1.png" alt="ref" style="max-width: 600px; width: 100%;">
-</div>
-
+![ref](refs/r1.png)
 ```makefile
 run:
 	docker run -d -p 3000:4200 -v logs:/app/data --env-file .env --rm --name node_docker node_docker:env
 ```
 #### run: This target runs the Docker container in detached mode (-d), mapping port 3000 on the host to port 4200 in the container (-p 3000:4200). It also mounts the logs volume to /app/data inside the container and loads environment variables from the .env file. The container is named node_docker and will be removed automatically when stopped (--rm).
+![ref](refs/r2.png)
+![ref](refs/r3.png)
 ```makefile
 run_dev:
 	docker run -d -p 3000:4200 -v $(shell pwd):/app -v /app/node_modules --env-file .env --rm --name node_docker node_docker:env
 ```
 #### run_dev: This target runs the Docker container in development mode. It mounts the current directory ($(shell pwd)) to /app inside the container, allowing live editing of files. It also mounts a volume for node_modules to use local dependencies. The rest of the parameters are the same as the run target.
+![ref](refs/r2.png)
+![ref](refs/r4.png)
 ```makefile
 run_dev_nodemon:
 	docker run -d -p 3000:4200 -v $(shell pwd):/app -v /app/node_modules --env-file .env --rm --name node_docker --entrypoint "npx" node_docker:env nodemon main.js
