@@ -81,6 +81,10 @@ create_image:
 	docker build -t node_docker:env .
 ```
 #### create_image: This target builds the Docker image with the tag node_docker:env using the Dockerfile in the current directory (.).
+<div style="text-align: center;">
+  <img src="refs/r1.png" alt="ref" style="max-width: 600px; width: 100%;">
+</div>
+
 ```makefile
 run:
 	docker run -d -p 3000:4200 -v logs:/app/data --env-file .env --rm --name node_docker node_docker:env
